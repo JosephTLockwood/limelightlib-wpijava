@@ -1053,42 +1053,6 @@ public class LimelightHelpers {
     return getLimelightNTString(limelightName, "json");
   }
 
-  /**
-   * Switch to getBotPose
-   *
-   * @param limelightName
-   * @return
-   * @deprecated Use other methods such as getBotPose()
-   */
-  @Deprecated
-  public static double[] getBotpose(String limelightName) {
-    return getLimelightNTDoubleArray(limelightName, "botpose");
-  }
-
-  /**
-   * Switch to getBotPose_wpiRed
-   *
-   * @param limelightName
-   * @return
-   * @deprecated Use other methods such as getBotPose()
-   */
-  @Deprecated
-  public static double[] getBotpose_wpiRed(String limelightName) {
-    return getLimelightNTDoubleArray(limelightName, "botpose_wpired");
-  }
-
-  /**
-   * Switch to getBotPose_wpiBlue
-   *
-   * @param limelightName
-   * @return
-   * @deprecated Use other methods such as getBotPose()
-   */
-  @Deprecated
-  public static double[] getBotpose_wpiBlue(String limelightName) {
-    return getLimelightNTDoubleArray(limelightName, "botpose_wpiblue");
-  }
-
   public static double[] getBotPose(String limelightName) {
     return getLimelightNTDoubleArray(limelightName, "botpose");
   }
