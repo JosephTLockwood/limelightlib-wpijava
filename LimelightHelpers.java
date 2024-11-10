@@ -27,7 +27,9 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -515,11 +517,41 @@ public class LimelightHelpers {
     }
 
     @Override
+    public boolean equals(Object obj) {
+      if (obj == this) return true;
+      if (obj == null || obj.getClass() != this.getClass()) return false;
+      PoseEstimate that = (PoseEstimate) obj;
+      return Objects.equals(this.pose, that.pose)
+          && Double.compare(this.timestampSeconds, that.timestampSeconds) == 0
+          && Double.compare(this.latency, that.latency) == 0
+          && this.tagCount == that.tagCount
+          && Double.compare(this.tagSpan, that.tagSpan) == 0
+          && Double.compare(this.avgTagDist, that.avgTagDist) == 0
+          && Double.compare(this.avgTagArea, that.avgTagArea) == 0
+          && Arrays.deepEquals(this.rawFiducials, that.rawFiducials)
+          && this.isMegaTag2 == that.isMegaTag2;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(
+          pose,
+          timestampSeconds,
+          latency,
+          tagCount,
+          tagSpan,
+          avgTagDist,
+          avgTagArea,
+          Arrays.deepHashCode(rawFiducials),
+          isMegaTag2);
+    }
+
     /**
      * Prints detailed information about a PoseEstimate to standard output. Includes timestamp,
      * latency, tag count, tag span, average tag distance, average tag area, and detailed
      * information about each detected fiducial.
      */
+    @Override
     public String toString() {
       StringBuilder sb = new StringBuilder();
       if (!isValid()) {
@@ -570,7 +602,6 @@ public class LimelightHelpers {
    */
   public static Pose3d toPose3D(double[] inData) {
     if (inData.length < 6) {
-      // System.err.println("Bad LL 3D Pose Data!");
       return new Pose3d();
     }
     return new Pose3d(
@@ -591,7 +622,6 @@ public class LimelightHelpers {
    */
   public static Pose2d toPose2D(double[] inData) {
     if (inData.length < 6) {
-      // System.err.println("Bad LL 2D Pose Data!");
       return new Pose2d();
     }
     Translation2d tran2d = new Translation2d(inData[0], inData[1]);
@@ -1028,6 +1058,7 @@ public class LimelightHelpers {
    *
    * @param limelightName
    * @return
+   * @deprecated Use other methods such as getBotPose()
    */
   @Deprecated
   public static double[] getBotpose(String limelightName) {
@@ -1039,6 +1070,7 @@ public class LimelightHelpers {
    *
    * @param limelightName
    * @return
+   * @deprecated Use other methods such as getBotPose()
    */
   @Deprecated
   public static double[] getBotpose_wpiRed(String limelightName) {
@@ -1050,6 +1082,7 @@ public class LimelightHelpers {
    *
    * @param limelightName
    * @return
+   * @deprecated Use other methods such as getBotPose()
    */
   @Deprecated
   public static double[] getBotpose_wpiBlue(String limelightName) {
