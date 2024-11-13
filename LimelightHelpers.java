@@ -803,6 +803,17 @@ public class LimelightHelpers {
     return rawDetections;
   }
 
+      /**
+     * Prints detailed information about a PoseEstimate to standard output.
+     * Includes timestamp, latency, tag count, tag span, average tag distance,
+     * average tag area, and detailed information about each detected fiducial.
+     *
+     * @param pose The PoseEstimate object to print. If null, prints "No PoseEstimate available."
+     */
+    public static void printPoseEstimate(PoseEstimate pose) {
+      System.out.println(pose.toString());
+    }
+
   public static NetworkTable getLimelightNTTable(String tableName) {
     return NetworkTableInstance.getDefault().getTable(sanitizeName(tableName));
   }
